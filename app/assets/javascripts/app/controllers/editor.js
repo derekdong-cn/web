@@ -396,6 +396,17 @@ export class EditorPanel {
     }
 
     this.onTitleChange = function() {
+      /**
+       * For Firefox pinned tab issue:
+       * 
+       * When a new browser session is started, and SN is in a pinned tab,
+       * SN is unusable until the tab is reloaded.
+       */
+      if(document.hidden) {
+        window.location.reload();
+        return;
+      }
+
       this.saveNote({dontUpdatePreviews: true, updateClientModified: true});
     }
 
